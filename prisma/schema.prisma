@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+}
+
+model Collaborators {
+  id Int @id @default(autoincrement())
+  name String
+  register_data DateTime @db.Date()
+  os_counter Int @default(0)
+  rework_counter Int @default(0)
+  total_time_minutes Int
+  score Int
+  orders Orders[]
+}
+
+  model Resources {
+    id Int @id @default(autoincrement())
+    resource_number Int @unique 
+    orders Orders[]
+  }
+
+  model Orders {
+    id Int @id @default(autoincrement())
+    is_rework Boolean 
+    resource_id Int
+    resource Resources @relation(fields: [resource_id], references: [id])
+    start_datetime DateTime @db.Timestamp()
+    end_datetime DateTime @db.Timestamp()
+    duration_min Int
+    collaborator_id Int
+    collaborator Collaborators @relation(fields: [collaborator_id], references: [id])
+  }
