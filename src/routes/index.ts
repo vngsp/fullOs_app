@@ -1,9 +1,8 @@
 import express from 'express';
+import { authRouter } from './authRouter';
 
 const mainRouter = express.Router();
 
-mainRouter.get('/ping', (req, res) => {
-    res.json({ ping: 'true' })
-})
+mainRouter.use('/', authRouter);
 
 export default mainRouter;
