@@ -32,3 +32,16 @@ export const updateUserEmail = async (id: number, email: string) => {
         }
     })
 }
+
+export const getMe = async (userId: number) => {
+    const user = await prisma.users.findUnique({
+        where: { id: userId },
+        select: { id: true, email: true }
+    });
+
+    if(!user) {
+        throw new Error("User not found");
+    }
+
+    return user;
+}

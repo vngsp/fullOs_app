@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { deleteUser, updateUserEmail } from "../services/userServices";
+import { deleteUser, getMe, updateUserEmail } from "../services/userServices";
 
 export const deleteUserController: RequestHandler = async (req, res) => {
     try {
@@ -26,5 +26,16 @@ export const updateUserEmailController: RequestHandler = async (req, res) => {
         return res.status(200).json(modifiedEmail);
     } catch(error: any) {
         res.status(400).json({ error: error.message });
+    }
+}
+
+export const getMeController: RequestHandler = async (req, res) => {
+    try {
+        const userId = req.user!.id;
+        const user = await getMe(userId);
+
+        return res.status(200).json(user);
+    } catch(error: any) {
+        return res.status(400).json({ error: error.message });
     }
 }
