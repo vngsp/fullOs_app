@@ -1,7 +1,18 @@
 import { Request, Response } from 'express';
+import { jwtService } from '../services/jwtTokenService';
 
 export const googleAuthCallback = (req: Request, res: Response) => {
-  res.redirect('/profile');
+  const user = req.user as any;
+
+  const userId = user.id;
+
+  const accessToken = jwtService.generateAccessToken(userId);
+  const refreshToken = jwtService.generateRefreshToken(userId);
+
+  res.redirect(
+    `http://localhost:3000/home` +
+    `?accessToken=${accessToken}&refreshToken=${refreshToken}`
+  );
 };
 
 export const profileController = (req: Request, res: Response) => {
