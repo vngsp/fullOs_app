@@ -8,7 +8,7 @@ export class GoogleAuthService {
         {
           clientID: process.env.GOOGLE_CLIENT_ID as string,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-          callbackURL: 'http://localhost:1000/auth/google/callback',
+          callbackURL: 'https://fullos-app.onrender.com',
         },
         (accessToken, refreshToken, profile: Profile, done) => {
           return done(null, profile as Express.User);

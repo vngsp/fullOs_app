@@ -11,6 +11,8 @@ server.use(cors())
 
 server.use('/', mainRouter);
 
-server.listen(1000, () => {
-    console.log('Server on at http://localhost:1000');
+const PORT = process.env.PORT || 1000;
+
+server.listen(PORT, () => {
+    console.log(`Server on at ${PORT}`);
 })
