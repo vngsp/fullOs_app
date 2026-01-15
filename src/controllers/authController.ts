@@ -8,7 +8,11 @@ export const registerController: RequestHandler = async (req, res ) => {
 
         res.status(201).json(newUser);
     } catch(error: any) {
-        res.status(500).json({error: error.message});
+        const isMailError = error.message === 'Este e-mail já está em uso';
+
+        res.status(isMailError ? 409 : 500).json({
+            message: error.message
+        });
     }
 }
 

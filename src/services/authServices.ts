@@ -1,26 +1,36 @@
-import { Prisma } from "../../generated/prisma/browser";
 import bcrypt from 'bcrypt'
 import { prisma } from "../lib/prisma";
 import { jwtService } from "./jwtTokenService";
+import { Prisma } from '../../generated/prisma/client';
 
 export const createUserService = async (data: Prisma.UsersCreateInput) => {
     if (!data.email || !data.password) {
         throw new Error("Password and email is required");
     }
-    const hashedPass = await bcrypt.hash(data.password, 10);
 
-    const user = await prisma.users.create({
-        data: {
-            email: data.email,
-            password: hashedPass,
-        },
-        select: {
-            id: true,
-            email: true
+    try {
+        const hashedPass = await bcrypt.hash(data.password, 10);
+
+        const user = await prisma.users.create({
+            data: {
+                email: data.email,
+                password: hashedPass,
+            },
+            select: {
+                id: true,
+                email: true
+            }
+        });
+
+        return user;
+    } catch (error: any) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code === 'P2002') {
+                throw new Error("Este e-mail já está em uso");
+            }
         }
-    });
-
-    return user;
+        throw error;
+    }
 }
 
 export const AuthUserService = async (data: Prisma.UsersCreateInput) => {
