@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import { prisma } from "../lib/prisma";
-import { jwtService } from "./jwtTokenService";
-import { Prisma } from '../../generated/prisma/client';
+import { Prisma } from '../../../generated/prisma/client';
+import { prisma } from '../../lib/prisma';
+import { jwtService } from './tokens/jwt.service';
 
 export const createUserService = async (data: Prisma.UsersCreateInput) => {
     if (!data.email || !data.password) {

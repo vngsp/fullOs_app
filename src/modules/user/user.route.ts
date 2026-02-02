@@ -1,6 +1,6 @@
 import express from 'express';
-import { deleteUserController, getMeController, updateUserEmailController } from '../controllers/usersController';
-import { authToken } from '../middlewares/authToken';
+import { deleteUserController, getMeController, updateUserEmailController } from './user.controller';
+import { authToken } from '../../middlewares/authToken';
 
 export const userRouter = express.Router();
 

@@ -1,10 +1,8 @@
-import express from 'express';
-import { authRouter } from './authRouter';
-import { userRouter } from './userRouter';
+import { Router } from 'express';
+import { userRouter } from '../modules/user/user.route';
+import { authRouter } from '../modules/auth/auth.router';
 
-const mainRouter = express.Router();
+export const mainRouter = Router();
 
-mainRouter.use('/', authRouter);
-mainRouter.use('/', userRouter);
-
-export default mainRouter;
+mainRouter.use('/auth', authRouter);
+mainRouter.use('/users', userRouter);
