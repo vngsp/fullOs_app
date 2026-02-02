@@ -13,7 +13,3 @@ server.use(cors());
 setupPassport();
 
 server.use('/', mainRouter);
-
-server.listen(1000, () => {
-    console.log('Server running on PORT 1000');
-})

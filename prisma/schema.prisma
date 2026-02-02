@@ -17,11 +17,11 @@ model Users {
 model Collaborators {
   id Int @id @default(autoincrement())
   name String
-  register_data DateTime @db.Date()
+  register_data DateTime @db.Date() @default(now())
   os_counter Int @default(0)
   rework_counter Int @default(0)
-  total_time_minutes Int
-  score Int
+  total_time_minutes Int @default(0)
+  score Int @default(0)
   orders Orders[]
 }
 

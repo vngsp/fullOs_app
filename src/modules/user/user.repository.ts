@@ -1,12 +1,10 @@
+import { Prisma } from '../../../generated/prisma/client';
 import { prisma } from '../../lib/prisma';
 
 export const userRepository = {
-  create(email: string, password: string) {
+  create(data: Prisma.UsersCreateInput) {
     return prisma.users.create({
-      data: {
-        email,
-        password,
-      },
+      data,
       select: {
         id: true,
         email: true,

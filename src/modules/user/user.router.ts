@@ -4,6 +4,6 @@ import { authToken } from '../../middlewares/authToken';
 
 export const userRouter = express.Router();
 
-userRouter.delete('/delete', deleteUserController);
-userRouter.put('/:id/email', updateUserEmailController);
+userRouter.delete('/delete/:id', deleteUserController);
+userRouter.put('/email/:id', updateUserEmailController);
 userRouter.get('/me', authToken, getMeController);
