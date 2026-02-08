@@ -14,16 +14,17 @@ model Users {
   refreshToken String?
 }
 
-model Collaborators {
-  id Int @id @default(autoincrement())
-  name String
-  register_data DateTime @db.Date() @default(now())
-  os_counter Int @default(0)
-  rework_counter Int @default(0)
-  total_time_minutes Int @default(0)
-  score Int @default(0)
-  orders Orders[]
-}
+  model Collaborators {
+    id Int @id @default(autoincrement())
+    name String
+    register_data DateTime @db.Date() @default(now())
+    os_counter Int @default(0)
+    rework_counter Int @default(0)
+    total_time_minutes Int @default(0)
+    score Int @default(0)
+    orders Orders[]
+    dailyScores CollaboratorDailyScore[]
+  }
 
   model Resources {
     id Int @id @default(autoincrement())
@@ -41,4 +42,12 @@ model Collaborators {
     duration_min Int
     collaborator_id Int
     collaborator Collaborators @relation(fields: [collaborator_id], references: [id])
+  }
+  model CollaboratorDailyScore {
+    id              Int      @id @default(autoincrement())
+    collaborator_id Int
+    date            DateTime @db.Date
+    score           Int
+    collaborator Collaborators @relation(fields: [collaborator_id], references: [id])
+    @@unique([collaborator_id, date])
   }

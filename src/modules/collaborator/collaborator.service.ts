@@ -1,5 +1,5 @@
 import runWithCheck from "../../utils/runWithCheck";
-import { collaboratoRepository } from "./collaborator.repository";
+import { collaboratorRepository } from "./collaborator.repository";
 
 export const collaboratorService = {
     async createCollaborator(name: string) {
@@ -7,7 +7,7 @@ export const collaboratorService = {
             name,
             'Name is required',
             'Failed to create Collaborator',
-            () => collaboratoRepository.create({ name })
+            () => collaboratorRepository.create({ name })
         )
     },
 
@@ -16,7 +16,7 @@ export const collaboratorService = {
             id,
             'Id is required',
             'Failed to delete Collaborator',
-            () => collaboratoRepository.deleteById(id)
+            () => collaboratorRepository.deleteById(id)
         )
     },
 
@@ -25,7 +25,7 @@ export const collaboratorService = {
             id,
             'You are missing ID or name',
             'Failed to update Collaborator name',
-            () => collaboratoRepository.updateName(id, name)
+            () => collaboratorRepository.updateName(id, name)
         )
     },
 
@@ -34,7 +34,7 @@ export const collaboratorService = {
             id,
             'Id is required',
             'Failed to find Collaborator',
-            () => collaboratoRepository.findById(id)
+            () => collaboratorRepository.findById(id)
         )
     }
 }

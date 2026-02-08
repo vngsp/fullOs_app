@@ -1,7 +1,7 @@
 import { Prisma } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma"
 
-export const collaboratoRepository = {
+export const collaboratorRepository = {
     create(data: Prisma.CollaboratorsCreateInput) {
         return prisma.collaborators.create({
             data,
@@ -41,5 +41,16 @@ export const collaboratoRepository = {
                 id,
             },
         })
+    },
+
+    incrementCounters(collaboratorId: number, isRework: boolean) {
+        return prisma.collaborators.update({
+            where: {
+                id: collaboratorId
+            },
+            data : isRework
+            ? { rework_counter : { increment: 1 } }
+            : { os_counter: { increment: 1 } }
+        });
     }
 }
